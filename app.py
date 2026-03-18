@@ -5,8 +5,11 @@ import time
 import nltk
 from nltk.corpus import stopwords
 
-nltk.download("stopwords")
-
+try:
+    stop_words = set(stopwords.words("english"))
+except:
+    nltk.download("stopwords")
+    stop_words = set(stopwords.words("english"))
 st.set_page_config(
     page_title="TruthLens ML | Fake News Detector",
     page_icon="🔍",
@@ -18,7 +21,7 @@ st.set_page_config(
 model = pickle.load(open("models/fake_news_model_decision_tree.pkl","rb"))
 vectorizer = pickle.load(open("models/tfidf_vectorizer.pkl","rb"))
 
-stop_words = set(stopwords.words("english"))
+
 
 # ---------------- PREPROCESSING ----------------
 # MATCHES YOUR NOTEBOOK clean_text()
